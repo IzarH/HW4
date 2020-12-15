@@ -1,0 +1,17 @@
+#!/bin/bash
+file="uniqarticle"
+counter=0
+gantz=0
+natanyahu=0
+wget https://www.ynetnews.com/category/3082
+cat 3082 |grep -o https://www.ynetnews.com/article/......... > article
+cat article|uniq > uniqarticle
+while IFS= read -r line; do
+counter+=1
+line_split=($line)
+wget ${line_split[0]} > article
+gantz= $( cat article| grep -o Gantz | wc -l )
+natanyahu= $( cat article| grep -o Natanyahu | wc -l )
+
+echo ${line_split[0]},Natanyahu,$natanyahu,Gantz,$gantz>>Results
+done < "$file"
